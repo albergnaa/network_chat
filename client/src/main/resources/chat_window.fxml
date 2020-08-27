@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controller">
+
+    <VBox fx:id="authPanel" style="-fx-background-color: #4db6ac;">
+
+        <TextField alignment="CENTER" style="-fx-background-color: #4db6ac; -fx-border-color: #009688;"
+                   text="Вход в чат">
+            <font>
+                <Font name="Book Antiqua" size="20.0"/>
+            </font>
+        </TextField>
+
+        <TextField alignment="CENTER" style="-fx-background-color: #4db6ac;" text="Логин *">
+            <font>
+                <Font name="Book Antiqua" size="14.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="loginField"/>
+
+        <TextField alignment="TOP_CENTER" style="-fx-background-color: #4db6ac;" text="Пароль *">
+            <font>
+                <Font name="Book Antiqua" size="14.0"/>
+            </font>
+        </TextField>
+        <PasswordField fx:id="passwordField" onAction="#tryToAuth"/>
+        <Pane prefHeight="11.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;"/>
+        <HBox prefHeight="7.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;">
+            <children>
+                <Pane prefHeight="39.0" prefWidth="123.0"/>
+                <Button fx:id="SignUpButton" onAction="#tryToAuth" prefHeight="26.0" prefWidth="80.0" text="Войти">
+                    <font>
+                        <Font name="Book Antiqua" size="14.0"/>
+                    </font>
+                </Button>
+                <Pane prefHeight="39.0" prefWidth="43.0"/>
+                <Button fx:id="logInButton" onAction="#showRegWindow" text="Регистрация">
+                    <font>
+                        <Font name="Book Antiqua" size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </VBox>
+
+    <HBox VBox.vgrow="ALWAYS">
+        <TextArea fx:id="textArea" editable="false"/>
+        <ListView fx:id="clientList" managed="false" minWidth="80" onMouseReleased="#clickClientList" visible="false"/>
+    </HBox>
+
+    <HBox fx:id="msgPanel" managed="false" style="-fx-background-color: #009688;" visible="false">
+        <children>
+            <TextField fx:id="textField" onAction="#sendMsg" promptText="Напишите сообщение..."
+                       style="-fx-background-color: #FFFFFF;" HBox.hgrow="ALWAYS">
+                <font>
+                    <Font name="JetBrains Mono Regular" size="14.0"/>
+                </font>
+            </TextField>
+            <Button onAction="#sendMsg" text="Send"/>
+        </children>
+    </HBox>
+
+
+</VBox>
