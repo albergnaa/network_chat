@@ -61,13 +61,28 @@ public class ClientHandler {
                                 continue;
                             }
                             boolean b = server.getAuthService()
-                                    .registration(token[1],token[2],token[3]);
-                            if(b){
+                                    .registration(token[1], token[2], token[3]);
+                            if (b) {
                                 sendMsg("/regresult ok");
-                            }else{
+                            } else {
                                 sendMsg("/regresult failed");
                             }
                         }
+
+                        if (str.startsWith("/changeNick ")) {
+                            String[] token = str.split("\\s");
+                            if (token.length < 4) {
+                                continue;
+                            }
+                            boolean b = server.getAuthService()
+                                    .changeNickname(token[1], token[2], token[3]);
+                            if (b) {
+                                sendMsg("/changeresult ok");
+                            } else {
+                                sendMsg("/changeresult failed");
+                            }
+                        }
+
                     }
 
 
@@ -94,9 +109,9 @@ public class ClientHandler {
                             server.broadcastMsg(this, str);
                         }
                     }
-                }catch (SocketTimeoutException e){
+                } catch (SocketTimeoutException e) {
                     sendMsg("/end");
-                }catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
                     System.out.println("Клиент отключился");
