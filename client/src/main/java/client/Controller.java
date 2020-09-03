@@ -43,7 +43,7 @@ public class Controller implements Initializable {
     @FXML
     public ListView<String> clientList;
 
-    private final int PORT = 8189;
+    private final int PORT = 8180;
     private final String IP_ADDRESS = "localhost";
     private final String CHAT_TITLE_EMPTY = "Chat july 2020";
 
@@ -57,7 +57,9 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private Stage regStage;
+    private Stage changeNickNameStage;
     SignUpController regController;
+    ChangeNicknameController changeNicknameController;
 
     public void setAuthenticated(boolean authenticated) {
         this.authenticated = authenticated;
@@ -92,10 +94,9 @@ public class Controller implements Initializable {
                 }
             });
         });
-
         setAuthenticated(false);
-
         regStage = createRegWindow();
+        changeNickNameStage = createChangeNicknameWindow();
     }
 
 
@@ -127,6 +128,15 @@ public class Controller implements Initializable {
                                 regController.addMessage("Регистрация прошла успешно");
                             } else {
                                 regController.addMessage("Регистрация не получилась, возможно логин или никнейм заняты");
+                            }
+                        }
+
+                        if (str.startsWith("/changeresult ")) {
+                            String result = str.split("\\s")[1];
+                            if (result.equals("ok")) {
+                                regController.addMessage("Смена ника прошла успешно");
+                            } else {
+                                regController.addMessage("Смена ника не получилась, возможно логин или никнейм введены неправильно");
                             }
                         }
 
@@ -239,19 +249,53 @@ public class Controller implements Initializable {
         return stage;
     }
 
+    private Stage createChangeNicknameWindow() {
+        Stage stage = new Stage();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/change_nickname.fxml"));
+            Parent root = fxmlLoader.load();
+
+            stage.setTitle("Change nickname window");
+            stage.setScene(new Scene(root, 500, 300));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            changeNicknameController = fxmlLoader.getController();
+            changeNicknameController.setController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stage;
+    }
+
+
     public void showRegWindow(ActionEvent actionEvent) {
         regStage.show();
+    }
+
+    public void showChangeNicknameWindow(ActionEvent actionEvent) {
+        changeNickNameStage.show();
     }
 
     public void tryToReg(String login, String password, String nickname) {
         if (socket == null || socket.isClosed()) {
             connect();
         }
-
         try {
             out.writeUTF(String.format("/reg %s %s %s", login, password, nickname));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void tryToChangeNickname(String login, String password, String nickname) {
+        if (socket == null || socket.isClosed()) {
+            connect();
+        }
+        try {
+            out.writeUTF(String.format("/changeNick %s %s %s", login, password, nickname));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

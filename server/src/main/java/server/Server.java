@@ -16,12 +16,12 @@ public class Server {
 
     public Server() {
         clients = new Vector<>();
-        authService = new SimpleAuthService();
+        authService = new DBAuthService();
 
         ServerSocket server = null;
         Socket socket;
 
-        final int PORT = 8189;
+        final int PORT = 8180;
 
         try {
             server = new ServerSocket(PORT);
@@ -57,7 +57,7 @@ public class Server {
         String message = String.format("[%s] private [%s] : %s", sender.getNick(), receiver, msg);
 
         for (ClientHandler c : clients) {
-            if(c.getNick().equals(receiver)){
+            if (c.getNick().equals(receiver)) {
                 c.sendMsg(message);
                 sender.sendMsg(message);
                 return;
@@ -77,9 +77,9 @@ public class Server {
         broadcastClientList();
     }
 
-    public boolean isLoginAuthorized(String login){
+    public boolean isLoginAuthorized(String login) {
         for (ClientHandler c : clients) {
-            if(c.getLogin().equals(login)){
+            if (c.getLogin().equals(login)) {
                 return true;
             }
         }
