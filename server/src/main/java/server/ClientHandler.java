@@ -55,6 +55,7 @@ public class ClientHandler {
                             }
                         }
 
+                        //регистрация
                         if (str.startsWith("/reg ")) {
                             String[] token = str.split("\\s");
                             if (token.length < 4) {
@@ -69,7 +70,8 @@ public class ClientHandler {
                             }
                         }
 
-                        if (str.startsWith("/changeNick ")) {
+                        //смена ника
+                        if (str.startsWith("/changeNick")) {
                             String[] token = str.split("\\s");
                             if (token.length < 4) {
                                 continue;
@@ -78,13 +80,13 @@ public class ClientHandler {
                                     .changeNickname(token[1], token[2], token[3]);
                             if (b) {
                                 sendMsg("/changeresult ok");
+                                nick = token[3];
                             } else {
                                 sendMsg("/changeresult failed");
                             }
                         }
 
                     }
-
 
                     //цикл работы
                     while (true) {

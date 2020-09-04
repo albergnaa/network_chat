@@ -38,6 +38,6 @@ public class SignUpController {
     }
 
     public void addMessage(String msg) {
-        textArea.appendText(msg+"\n");
+        textArea.appendText(msg + "\n");
     }
 }
