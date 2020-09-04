@@ -20,11 +20,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -108,7 +108,6 @@ public class Controller implements Initializable {
 
             new Thread(() -> {
                 try {
-                    //цикл аутентификации
                     while (true) {
                         String str = in.readUTF();
 
@@ -134,9 +133,9 @@ public class Controller implements Initializable {
                         if (str.startsWith("/changeresult ")) {
                             String result = str.split("\\s")[1];
                             if (result.equals("ok")) {
-                                regController.addMessage("Смена ника прошла успешно");
+                                changeNicknameController.addMessage("Смена ника прошла успешно");
                             } else {
-                                regController.addMessage("Смена ника не получилась, возможно логин или никнейм введены неправильно");
+                                changeNicknameController.addMessage("Смена ника не получилась, возможно логин или никнейм введены неправильно");
                             }
                         }
 
@@ -175,21 +174,17 @@ public class Controller implements Initializable {
                     try {
                         in.close();
                         out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         socket.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }).start();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     public void sendMsg(ActionEvent actionEvent) {
@@ -206,7 +201,6 @@ public class Controller implements Initializable {
         if (socket == null || socket.isClosed()) {
             connect();
         }
-
         try {
             out.writeUTF(String.format("/auth %s %s", loginField.getText().trim(), passwordField.getText().trim()));
             passwordField.clear();
@@ -267,7 +261,6 @@ public class Controller implements Initializable {
         return stage;
     }
 
-
     public void showRegWindow(ActionEvent actionEvent) {
         regStage.show();
     }
@@ -297,5 +290,4 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

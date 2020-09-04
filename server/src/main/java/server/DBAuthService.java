@@ -39,7 +39,6 @@ public class DBAuthService implements AuthService {
         }
     }
 
-
     @Override
     public String getNicknameByLoginAndPassword(String login, String password) {
         String sql = String.format("SELECT nickname FROM main where login = '%s' and password = '%s'", login, password);
@@ -66,28 +65,27 @@ public class DBAuthService implements AuthService {
         try {
             connect();
             String sql = String.format("INSERT INTO main (login, password, nickname) VALUES ('%s', '%s', '%s')", login, password, nickname);
-            res = stmt.execute(sql);
+            res = !stmt.execute(sql);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             disconnect();
         }
-        return !res;
+        return res;
     }
 
     @Override
     public boolean changeNickname(String login, String password, String newNickname) {
         boolean res = false;
         try {
-            connect();
             String nickname = getNicknameByLoginAndPassword(login, password);
-            if (newNickname != null) {
-                System.out.println(nickname);
-                System.out.println(newNickname);
+            connect();
+            System.out.println(newNickname);
+            System.out.println(nickname);
+            System.out.println(newNickname != null && !newNickname.equals(nickname));
+            if (newNickname != null && !newNickname.equals(nickname)) {
                 String sql = String.format("UPDATE main SET nickname = '%s' WHERE nickname = '%s' ", newNickname, nickname);
-                System.out.println(sql);
-                //тут проблема
-                res = stmt.execute(sql);
+                res = !stmt.execute(sql);
                 System.out.println(res);
             }
         } catch (Exception e) {
@@ -95,7 +93,6 @@ public class DBAuthService implements AuthService {
         } finally {
             disconnect();
         }
-        System.out.println(!res);
-        return !res;
+        return res;
     }
 }
