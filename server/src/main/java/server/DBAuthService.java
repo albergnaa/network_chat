@@ -80,13 +80,9 @@ public class DBAuthService implements AuthService {
         try {
             String nickname = getNicknameByLoginAndPassword(login, password);
             connect();
-            System.out.println(newNickname);
-            System.out.println(nickname);
-            System.out.println(newNickname != null && !newNickname.equals(nickname));
             if (newNickname != null && !newNickname.equals(nickname)) {
                 String sql = String.format("UPDATE main SET nickname = '%s' WHERE nickname = '%s' ", newNickname, nickname);
                 res = !stmt.execute(sql);
-                System.out.println(res);
             }
         } catch (Exception e) {
             e.printStackTrace();

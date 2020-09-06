@@ -66,7 +66,6 @@ public class Server {
         sender.sendMsg(String.format("Client %s not found", receiver));
     }
 
-
     public void subscribe(ClientHandler clientHandler) {
         clients.add(clientHandler);
         broadcastClientList();
@@ -88,13 +87,10 @@ public class Server {
 
     void broadcastClientList() {
         StringBuilder sb = new StringBuilder("/clientlist ");
-
         for (ClientHandler c : clients) {
             sb.append(c.getNick()).append(" ");
         }
-
         String msg = sb.toString();
-
         for (ClientHandler c : clients) {
             c.sendMsg(msg);
         }

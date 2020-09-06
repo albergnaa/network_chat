@@ -4,58 +4,55 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="center" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.241"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.SignUpController">
+<VBox alignment="center" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.SignUpController">
 
-    <TextField alignment="CENTER" prefHeight="22.0" prefWidth="478.0"
-               style="-fx-background-color: #4db6ac; -fx-border-color: #009688;" text="Регистрация">
+    <TextField alignment="CENTER" editable="false" prefHeight="22.0" prefWidth="478.0" style="-fx-background-color: #4db6ac; -fx-border-color: #009688;" text="Регистрация">
         <font>
-            <Font name="Book Antiqua" size="20.0"/>
+            <Font name="Book Antiqua" size="20.0" />
         </font>
     </TextField>
 
-    <TextField alignment="CENTER" prefHeight="16.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;"
-               text="Логин *">
+    <TextField alignment="CENTER" editable="false" prefHeight="16.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;" text="Логин *">
         <font>
-            <Font name="Book Antiqua" size="14.0"/>
+            <Font name="Book Antiqua" size="14.0" />
         </font>
     </TextField>
-    <TextField fx:id="loginField"/>
+    <TextField fx:id="loginField" />
 
-    <TextField alignment="TOP_CENTER" style="-fx-background-color: #4db6ac;" text="Пароль *">
+    <TextField alignment="TOP_CENTER" editable="false" style="-fx-background-color: #4db6ac;" text="Пароль *">
         <font>
-            <Font name="Book Antiqua" size="14.0"/>
+            <Font name="Book Antiqua" size="14.0" />
         </font>
     </TextField>
-    <PasswordField fx:id="passwordField"/>
+    <PasswordField fx:id="passwordField" />
 
-    <TextField alignment="TOP_CENTER" style="-fx-background-color: #4db6ac;" text="Имя пользователя *">
+    <TextField alignment="TOP_CENTER" editable="false" style="-fx-background-color: #4db6ac;" text="Имя пользователя *">
         <font>
-            <Font name="Book Antiqua" size="14.0"/>
+            <Font name="Book Antiqua" size="14.0" />
         </font>
     </TextField>
-    <TextField fx:id="nicknameField"/>
+    <TextField fx:id="nicknameField" />
 
-    <Pane prefHeight="11.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;"/>
+    <Pane prefHeight="11.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;" />
     <HBox prefHeight="7.0" prefWidth="478.0" style="-fx-background-color: #4db6ac;">
         <children>
-            <Pane prefHeight="28.0" prefWidth="107.0"/>
+            <Pane prefHeight="28.0" prefWidth="107.0" />
             <Button onAction="#tryToReg" prefHeight="28.0" prefWidth="134.0" text="Создать аккаунт">
                 <font>
-                    <Font name="Book Antiqua" size="14.0"/>
+                    <Font name="Book Antiqua" size="14.0" />
                 </font>
             </Button>
-            <Pane prefHeight="39.0" prefWidth="43.0"/>
+            <Pane prefHeight="39.0" prefWidth="43.0" />
             <Button onAction="#clickCancelBtn" prefHeight="28.0" prefWidth="87.0" text="Отмена">
                 <font>
-                    <Font name="Book Antiqua" size="14.0"/>
+                    <Font name="Book Antiqua" size="14.0" />
                 </font>
             </Button>
         </children>
     </HBox>
 
 
-    <TextArea fx:id="textArea" editable="false" prefHeight="0.0" prefWidth="478.0" VBox.vgrow="ALWAYS"/>
+    <TextArea fx:id="textArea" editable="false" prefHeight="0.0" prefWidth="478.0" VBox.vgrow="ALWAYS" />
 
 
 </VBox>
