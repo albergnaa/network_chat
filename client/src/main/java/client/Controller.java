@@ -54,6 +54,7 @@ public class Controller implements Initializable {
 
     private boolean authenticated;
     private String nick;
+    private String login;
 
     private Stage stage;
     private Stage regStage;
@@ -71,6 +72,7 @@ public class Controller implements Initializable {
         clientList.setManaged(authenticated);
         if (!authenticated) {
             nick = "";
+            History.stop();
         }
         setTitle(nick);
         textArea.clear();
@@ -116,6 +118,8 @@ public class Controller implements Initializable {
                         if (str.startsWith("/authok ")) {
                             nick = str.split("\\s")[1];
                             setAuthenticated(true);
+                            textArea.appendText(History.getLastMessages(login));
+                            History.start(login);
                             break;
                         }
 
@@ -140,8 +144,8 @@ public class Controller implements Initializable {
                                 changeNicknameController.addMessage("Смена ника не получилась, возможно логин или никнейм введены неправильно");
                             }
                         }
-
                         textArea.appendText(str + "\n");
+                        History.writeLine(str);
                     }
 
                     //цикл работы
@@ -164,9 +168,10 @@ public class Controller implements Initializable {
                                     }
                                 });
                             }
-                        //печать сообщения
+                            //печать сообщения
                         } else {
                             textArea.appendText(str + "\n");
+                            History.writeLine(str);
                         }
                     }
                 } catch (IOException e) {
@@ -202,6 +207,7 @@ public class Controller implements Initializable {
         }
         try {
             out.writeUTF(String.format("/auth %s %s", loginField.getText().trim(), passwordField.getText().trim()));
+            login = loginField.getText();
             passwordField.clear();
         } catch (IOException e) {
             e.printStackTrace();
