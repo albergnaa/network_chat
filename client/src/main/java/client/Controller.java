@@ -109,8 +109,10 @@ public class Controller implements Initializable {
             new Thread(() -> {
                 try {
                     while (true) {
-                        String str = in.readUTF();
 
+                        //обработка сообщений от сервера
+                        String str = in.readUTF();
+                        //
                         if (str.startsWith("/authok ")) {
                             nick = str.split("\\s")[1];
                             setAuthenticated(true);
@@ -142,16 +144,17 @@ public class Controller implements Initializable {
                         textArea.appendText(str + "\n");
                     }
 
-
                     //цикл работы
                     while (true) {
                         String str = in.readUTF();
 
                         if (str.startsWith("/")) {
+                            //выход
                             if (str.equals("/end")) {
                                 setAuthenticated(false);
                                 break;
                             }
+                            //лист клиентов
                             if (str.startsWith("/clientlist ")) {
                                 String[] token = str.split("\\s");
                                 Platform.runLater(() -> {
@@ -161,13 +164,11 @@ public class Controller implements Initializable {
                                     }
                                 });
                             }
-
+                        //печать сообщения
                         } else {
                             textArea.appendText(str + "\n");
                         }
                     }
-                } catch (RuntimeException e) {
-                    System.out.println(e.getMessage());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
@@ -184,8 +185,6 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
-
 
     public void sendMsg(ActionEvent actionEvent) {
         try {

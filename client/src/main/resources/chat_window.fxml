@@ -8,7 +8,7 @@
 
     <VBox fx:id="authPanel" style="-fx-background-color: #4db6ac;">
 
-        <TextField alignment="CENTER" style="-fx-background-color: #4db6ac; -fx-border-color: #009688;" text="Вход в чат">
+        <TextField alignment="CENTER" editable="false" style="-fx-background-color: #4db6ac; -fx-border-color: #009688;" text="Вход в чат">
             <font>
                 <Font name="Book Antiqua" size="20.0" />
             </font>
@@ -21,7 +21,7 @@
         </TextField>
         <TextField fx:id="loginField" />
 
-        <TextField alignment="TOP_CENTER" style="-fx-background-color: #4db6ac;" text="Пароль *">
+        <TextField alignment="TOP_CENTER" editable="false" style="-fx-background-color: #4db6ac;" text="Пароль *">
             <font>
                 <Font name="Book Antiqua" size="14.0" />
             </font>
